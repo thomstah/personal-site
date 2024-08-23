@@ -7,7 +7,7 @@
 
 .title-name {
  background-color: #f4f3ee; 
- padding: 5px;   
+ padding: 5px; 
 }
 
 .jetbrains-mono-bold {
@@ -24,8 +24,12 @@
   }
 
 #Hero {
-    color: #f4f3ee;
+    color: white;
 }
   
+.img-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  
