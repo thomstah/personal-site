@@ -23,8 +23,12 @@
     animation: gradient-animation 5s ease infinite;
   }
 
-#Hero {
+#about-me {
     color: white;
+}
+
+#about-me h1 {
+  text-align: center;
 }
   
 .img-container{
@@ -37,5 +41,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.cover-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url(./media/cover-photo.JPG);
+  background-size: cover;
+  background-position: center;
 }
 
