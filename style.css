@@ -60,15 +60,28 @@
   background-position: center;
 }
 
-footer {
-  background-color: #404040;
+#footer {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+a span {
+  display: none;
+}
 
+.footer-name span {
+  align-content: center;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 
 
