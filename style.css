@@ -11,18 +11,14 @@
   font-weight: 700;
   font-style: normal;
 }
-  
-.title-name {
- background-color: #f4f3ee; 
- padding: 5px; 
-}
 
 .cover-title {
-  background-color: #B1B1B1;
-  color: #272727;
+  color: #FFFFFF;
 }
 
-
+.section-title {
+  color: #272727;
+}
 
 .gradient-background {
     background: linear-gradient(300deg, #121212, #272727, #696969);
@@ -30,13 +26,17 @@
     animation: gradient-animation 5s ease infinite;
   }
 
-#about-me {
+#about-me p {
     color: white;
 }
 
 #about-me h1 {
   text-align: center;
+  background-color: #FFFFFF;
+  color: #272727;
 }
+
+
   
 .img-container{
   display: flex;
@@ -63,4 +63,15 @@
 footer {
   background-color: #404040;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+
+
 

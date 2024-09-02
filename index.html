@@ -15,10 +15,11 @@
     </head>
     <body>
         <!-- Cover -->
-        <section id="cover">
+        <section id="cover" class="jetbrains-mono-normal">
           <div class="cover-container bg-dark text-secondary px-4 py-5 text-center">
             <div class="py-5">
-              <h1 class="display-5 fw-bold jetbrains-mono-normal cover-title">[ <span class="cover-name">THOMMY XAYSONGKHAM</span> ]</h1>
+              <h1 class="display-5 fw-bold jetbrains-mono-bold cover-title"><span class="cover-name">THOMMY XAYSONGKHAM</span></h1>
+              <p class="cover-title">[  SOFTWARE ENGINEER  ]</p>
               <div class="col-lg-6 mx-auto">
                 <p class="fs-5 mb-4"></p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -29,7 +30,7 @@
         </section>
 
         <!-- About me -->
-        <section id="about-me" class="gradient-background">
+        <section id="about-me" class="gradient-background jetbrains-mono-normal">
             <div class="container col-xxl-8 px-4 py-5">
                 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                   <div class="img-container col-10 col-sm-8 col-lg-6">
@@ -37,11 +38,11 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="title py-1">
-                      <h1 class="title-name display-5 fw-bold text-body-emphasis lh-1 my-1 jetbrains-mono-bold py-1">
+                      <h1 class="section-title display-5 fw-bold lh-1 my-1 py-1 jetbrains-mono-bold">
                         [  ABOUT ME  ]
                       </h1>
                     </div>
-                    <p class="lead jetbrains-mono-normal">Hello world!<br/> I am a second-year undergraduate studying software engineering.<br/> 
+                    <p class="lead">Hello world!<br/> I am a second-year undergraduate studying software engineering.<br/> 
                                                         I am passionate in expanding my knowledge and developing my skills in programming and web development.</p>
                   </div>
                 </div>
@@ -51,17 +52,18 @@
         <!-- Projects -->
         <section id="projects" class="jetbrains-mono-normal">
           <div class="container px-4 py-5" id="custom-cards">
-            <h2 class="pb-2 border-bottom fw-bold">[ PROJECTS ]</h2>
+            <h2 class="pb-2 section-title fw-bold">[ PROJECTS ]</h2>
         
             <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
                 <div class="col">
                   <a style="text-decoration: none;" target=”_blank” href="./online-resume/index.html">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" 
+                    <div class="card card-cover card-resume h-100 overflow-hidden  rounded-4 shadow-lg" 
                       style=
-                        "background-image: url(./media/Screenshot\ 2024-08-30\ 235754.png);
-                         background-size: cover;
-                         background-blend-mode: multiply;
-                         opacity: 0.8;">
+                         "background-color: #404040;
+                          background-image: url(./media/Screenshot\ 2024-08-30\ 235754.png);
+                          background-size: cover;
+                          background-blend-mode: multiply;
+                          opacity: 0.8;">
                       <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                         <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">My outdated resume replica!</h3>
                         <ul class="d-flex list-unstyled mt-auto">
@@ -81,8 +83,11 @@
                 </div>
                 
                 <div class="col" >
-                  <a style="text-decoration: none;" href="./index.html">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
+                  <a style="text-decoration: none;" href="#cover">
+                    <div class="card card-cover card-color h-100 overflow-hidden  rounded-4 shadow-lg .card-color" 
+                    style=
+                     "background-color: #404040;
+                      background-image: url('unsplash-photo-2.jpg');">
                       <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                         <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Personal website that you're on right now!</h3>
                         <ul class="d-flex list-unstyled mt-auto">
@@ -121,6 +126,8 @@
               </ul>
             </footer>
           </section>
+
+
         <script>
           document.addEventListener("DOMContentLoaded", function() {
               const target = document.querySelector('.cover-name');
