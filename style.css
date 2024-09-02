@@ -48,8 +48,12 @@
   justify-content: center;
 }
 
+.card h3{
+  color: #121212;
+}
+
 .cover-container {
-  display: flex;
+  display: flex
   align-items: center;
   justify-content: center;
   height: 100vh;
