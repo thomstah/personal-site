@@ -1,5 +1,7 @@
 'use client';
 
+import { animation } from '../tokens';
+
 const PIXEL_SIZE = 4;
 
 const COLORS: Record<string, string> = {
@@ -36,7 +38,7 @@ const GRID = [
   '__pppp__pppp__', // 18
   '_fffff__fffff_', // 19 shoes
   '_fffff__fffff_', // 20
-  '_ffffff_ffffff', // 21
+  '_ffffff_ffffff_', // 21
 ];
 
 export function PixelCharacter() {
@@ -45,12 +47,12 @@ export function PixelCharacter() {
       <style>{`
         @keyframes pixel-float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
+          50% { transform: translateY(-${animation.floatDistance}); }
         }
       `}</style>
       <div
         data-testid="pixel-character"
-        style={{ animation: 'pixel-float 3s ease-in-out infinite' }}
+        style={{ animation: `pixel-float ${animation.floatDuration} ease-in-out infinite` }}
       >
         <div style={{ display: 'inline-block', imageRendering: 'pixelated' }}>
           {GRID.map((row, y) => (

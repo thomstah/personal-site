@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { NavDot } from './NavDot';
 
@@ -15,6 +15,10 @@ beforeEach(() => {
     value: { href: '' },
     writable: true,
   });
+});
+
+afterEach(() => {
+  vi.useRealTimers();
 });
 
 describe('NavDot', () => {
@@ -40,5 +44,15 @@ describe('NavDot', () => {
     fireEvent.mouseEnter(dot);
     fireEvent.mouseLeave(dot);
     expect(screen.queryByText('https://links.thommyxay.com')).not.toBeInTheDocument();
+  });
+
+  it('navigates to href after click with delay', async () => {
+    vi.useFakeTimers();
+    render(<NavDot label="PORTFOLIO" href="https://portfolio.thommyxay.com" color="#111111" />);
+    fireEvent.click(screen.getByTestId('nav-dot-portfolio'));
+    expect(window.location.href).toBe('');
+    vi.advanceTimersByTime(300);
+    expect(window.location.href).toBe('https://portfolio.thommyxay.com');
+    vi.useRealTimers();
   });
 });

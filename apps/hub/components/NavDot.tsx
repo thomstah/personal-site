@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { animation } from '@thommyxay/ui';
+import { animation, colors } from '@thommyxay/ui';
 
 interface NavDotProps {
   label: string;
@@ -34,7 +34,7 @@ export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
             style={{
               position: 'fixed',
               inset: 0,
-              backgroundColor: '#ffffff',
+              backgroundColor: colors.overlay,
               zIndex: 50,
               pointerEvents: 'none',
             }}
