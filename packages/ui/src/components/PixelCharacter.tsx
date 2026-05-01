@@ -5,40 +5,42 @@ import { animation } from '../tokens';
 const PIXEL_SIZE = 4;
 
 const COLORS: Record<string, string> = {
-  h: '#3a2a1a',
-  s: '#f5c5a3',
-  e: '#1a3a5a',
-  m: '#c06060',
-  b: '#2a4a7a',
-  B: '#4a6a9a',
-  p: '#1a2a3a',
-  f: '#0d1520',
+  h: '#111111',   // black hair
+  s: '#c8956a',   // medium tan skin
+  e: '#111111',   // dark eyes
+  m: '#a06858',   // mouth
+  c: '#2e3030',   // dark charcoal henley
+  v: '#484a4a',   // henley placket detail
+  p: '#3d5a8a',   // blue denim
+  f: '#b8845a',   // birkenstock suede upper
+  F: '#8a6840',   // birkenstock cork sole
 };
 
-// 14 cols × 22 rows. Edit individual chars to iterate on the character design.
+// 14 cols × 22 rows. SDV-style proportions: big head, middle-part flowy hair,
+// dark henley, blue jeans, Birkenstock Bostons.
 const GRID = [
-  '___hhhhhhhh___', // 0  hair
-  '___hhhhhhhh___', // 1
-  '__ssssssssss__', // 2  face
-  '__ssssssssss__', // 3
-  '__ss_ee_ee_ss_', // 4  eyes
-  '__ss_ee_ee_ss_', // 5
-  '__ssssssssss__', // 6
-  '__ss_mmmm_ss__', // 7  mouth
-  '__ssssssssss__', // 8
-  '__bbbbbbbbbb__', // 9  jacket
-  '__bbbbbbbbbb__', // 10
-  '_bBBBBBBBBBBb_', // 11 jacket highlight
-  '__bbbbbbbbbb__', // 12
-  '__bbbbbbbbbb__', // 13
-  '__bbbbbbbbbb__', // 14
-  '__pppp__pppp__', // 15 pants
-  '__pppp__pppp__', // 16
+  '____hh__hh____', // 0  hair top, middle part visible
+  '___hhhhhhhh___', // 1  hair
+  '__hssssssssh__', // 2  face
+  '__hssssssssh__', // 3  face
+  '__hsseeseesh__', // 4  eyes (2px each, skin at nose bridge)
+  '__hssssssssh__', // 5  face
+  '__hsssmmsssh__', // 6  mouth
+  '__hssssssssh__', // 7  face
+  '__hssssssssh__', // 8  chin
+  '_____ssss_____', // 9  neck
+  '__ccc_ss_ccc__', // 10 collar (neck peeking through)
+  '__cccccccccc__', // 11 henley
+  '__cccccccccc__', // 12 henley
+  '__ccc_vv_ccc__', // 13 henley placket buttons
+  '__cccccccccc__', // 14 henley hem
+  '__pppppppppp__', // 15 jeans waist
+  '__pppp__pppp__', // 16 jeans
   '__pppp__pppp__', // 17
   '__pppp__pppp__', // 18
-  '_fffff__fffff_', // 19 shoes
-  '_fffff__fffff_', // 20
-  '_ffffff_ffffff_', // 21
+  '__pppp__pppp__', // 19
+  '_fffff__fffff_', // 20 birkenstock suede
+  '_FFFFF__FFFFF_', // 21 birkenstock cork sole
 ];
 
 export function PixelCharacter() {
