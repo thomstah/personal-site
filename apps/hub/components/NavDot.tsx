@@ -66,7 +66,7 @@ export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 6 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: animation.hoverDuration / 1000 }}
               style={{
                 position: 'absolute',
                 bottom: '100%',
