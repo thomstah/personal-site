@@ -1,0 +1,18 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install -g pnpm@9
+        - pnpm install --frozen-lockfile
+    build:
+      commands:
+        - pnpm turbo build --filter=@thommyxay/hub
+  artifacts:
+    baseDirectory: apps/hub/.next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - apps/hub/.next/cache/**/*
