@@ -45,7 +45,7 @@ Full-viewport, vertically and horizontally centered single column. No scroll. No
    Dot sizes: ~8–10px diameter. Colors: dark to light left-to-right (`#111`, `#888`, `#ccc`) to create subtle visual hierarchy.
 
 ### Background
-Pure white `#ffffff`. No texture, no pattern, no gradient.
+Pure white `#faf9f6`. No texture, no pattern, no gradient.
 
 ### Typography
 **Pixelify Sans** (Google Fonts) for all text — name, subtitle, dot labels, tooltips.
