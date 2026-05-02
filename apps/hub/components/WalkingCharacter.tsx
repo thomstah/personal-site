@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 const FRAME_SIZE = 64;
-const SCALE = 1;           // 64px character — right-sized for the diorama box
+const SCALE = 2;           // 128px character — more visible in the smaller box
 const CHAR = FRAME_SIZE * SCALE;
 const SHEET_W = 832;
 const SHEET_H = 3456;
