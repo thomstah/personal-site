@@ -8,22 +8,20 @@ describe('PixelCharacter', () => {
     expect(screen.getByTestId('pixel-character')).toBeInTheDocument();
   });
 
-  it('applies the pixel-float animation', () => {
+  it('applies the walk-south animation', () => {
     render(<PixelCharacter />);
-    const el = screen.getByTestId('pixel-character');
-    expect(el.style.animation).toContain('pixel-float');
+    expect(screen.getByTestId('pixel-character').style.animation).toContain('walk-south');
   });
 
-  it('renders the sprite frame at the correct size', () => {
+  it('renders at the correct frame size', () => {
     render(<PixelCharacter />);
-    const frame = screen.getByTestId('pixel-character').firstElementChild as HTMLElement;
-    expect(frame.style.width).toBe('128px');
-    expect(frame.style.height).toBe('128px');
+    const el = screen.getByTestId('pixel-character');
+    expect(el.style.width).toBe('128px');
+    expect(el.style.height).toBe('128px');
   });
 
   it('points to the sprite sheet', () => {
     render(<PixelCharacter />);
-    const frame = screen.getByTestId('pixel-character').firstElementChild as HTMLElement;
-    expect(frame.style.backgroundImage).toContain('sprite.png');
+    expect(screen.getByTestId('pixel-character').style.backgroundImage).toContain('sprite.png');
   });
 });
