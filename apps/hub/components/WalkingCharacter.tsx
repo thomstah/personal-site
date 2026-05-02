@@ -14,16 +14,16 @@ const WALK_ROWS = { north: 8, west: 9, south: 10, east: 11 } as const;
 type Direction = keyof typeof WALK_ROWS;
 
 // Walkable waypoints as box fractions [x, y].
-// Mapped to open floor in the top-down office/bedroom image.
-// Avoids: armchair (left), desk+chair (center-right), plant (bottom-left),
-//         bench+dumbbells (far right), back wall furniture (top).
+// Mapped to the open wood floor in the square pixel bedroom/office.
+// Avoids: desk+chair (left, y≈35-65%), camera+trash (far left),
+//         dumbbells (right, y≈38-52%), right shelf (far right).
 const WAYPOINT_FRACS: [number, number][] = [
-  [0.16, 0.65],  // left open floor (between plant and rug)
-  [0.35, 0.63],  // left side of rug
-  [0.42, 0.78],  // center of rug
-  [0.62, 0.68],  // right of rug
-  [0.52, 0.85],  // bottom center open floor
-  [0.72, 0.74],  // right side floor (before bench)
+  [0.28, 0.68],  // left-center open floor
+  [0.48, 0.63],  // center floor
+  [0.62, 0.68],  // center-right
+  [0.40, 0.82],  // bottom center
+  [0.55, 0.82],  // bottom right of center
+  [0.28, 0.82],  // bottom left
 ];
 
 const KEYFRAMES = (Object.entries(WALK_ROWS) as [Direction, number][])

@@ -6,8 +6,8 @@ import { NavDots } from './NavDots';
 import { Room } from './Room';
 import { WalkingCharacter } from './WalkingCharacter';
 
-const BOX_W = 560;
-const BOX_H = 277; // 2584×1278 image → ~2.02:1 → 560×277
+const BOX_W = 480;
+const BOX_H = 479; // 1382×1380 image → ~1:1 → 480×479
 
 function fadeUp(delay: number) {
   return {
