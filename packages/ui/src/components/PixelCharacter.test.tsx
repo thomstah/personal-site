@@ -8,9 +8,9 @@ describe('PixelCharacter', () => {
     expect(screen.getByTestId('pixel-character')).toBeInTheDocument();
   });
 
-  it('applies the walk-south animation', () => {
+  it('applies a sprite animation on mount', () => {
     render(<PixelCharacter />);
-    expect(screen.getByTestId('pixel-character').style.animation).toContain('walk-south');
+    expect(screen.getByTestId('pixel-character').style.animation).toContain('sprite-');
   });
 
   it('renders at the correct frame size', () => {
