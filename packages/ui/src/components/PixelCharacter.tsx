@@ -9,13 +9,10 @@ const SHEET_H = 3456;
 const MS_PER_FRAME = 100;
 const CYCLES_PER_ANIM = 2;
 
-// South-facing LPC animations (row × 64px = y offset, standard LPC layout)
+// South-facing LPC animations — object-free body movements only
+// TODO: identify additional Universal LPC rows (idle, emotes, etc.)
 const ANIMATIONS = [
-  { name: 'spellcast', y: 128,  frames: 7  },
-  { name: 'thrust',    y: 384,  frames: 8  },
-  { name: 'walk',      y: 640,  frames: 9  },
-  { name: 'slash',     y: 896,  frames: 6  },
-  { name: 'shoot',     y: 1152, frames: 13 },
+  { name: 'walk', y: 640, frames: 9 },
 ] as const;
 
 type Anim = typeof ANIMATIONS[number];
@@ -29,11 +26,12 @@ const KEYFRAMES = ANIMATIONS.map(({ name, y, frames }) => {
 
 function pickRandom(exclude: Anim): Anim {
   const pool = ANIMATIONS.filter(a => a !== exclude);
+  if (pool.length === 0) return exclude;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
 export function PixelCharacter() {
-  const [anim, setAnim] = useState<Anim>(ANIMATIONS[2]); // start with walk
+  const [anim, setAnim] = useState<Anim>(ANIMATIONS[0]);
 
   useEffect(() => {
     const ms = anim.frames * MS_PER_FRAME * CYCLES_PER_ANIM;
