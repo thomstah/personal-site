@@ -16,9 +16,9 @@ describe('HubPage', () => {
     expect(screen.getByTestId('hub-page')).toBeInTheDocument();
   });
 
-  it('renders the pixel character', () => {
+  it('renders the walking character', () => {
     render(<HubPage />);
-    expect(screen.getByTestId('pixel-character')).toBeInTheDocument();
+    expect(screen.getByTestId('walking-character')).toBeInTheDocument();
   });
 
   it('renders the name', () => {

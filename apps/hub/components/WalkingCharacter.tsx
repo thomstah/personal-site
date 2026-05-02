@@ -1,0 +1,120 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+
+const FRAME_SIZE = 64;
+const SCALE = 2;
+const CHAR = FRAME_SIZE * SCALE;
+const SHEET_W = 832;
+const SHEET_H = 3456;
+const SPEED = 100;   // px / second
+const IDLE_MS = 2800;
+
+// LPC standard: walk rows are 8–11 (north, west, south, east)
+const WALK_ROWS = { north: 8, west: 9, south: 10, east: 11 } as const;
+type Direction = keyof typeof WALK_ROWS;
+
+// Walkable waypoints as viewport fractions [x, y]
+// Kept inside the floor area (y > 0.35) and clear of furniture
+const WAYPOINT_FRACS: [number, number][] = [
+  [0.18, 0.48],
+  [0.48, 0.46],
+  [0.70, 0.46],
+  [0.14, 0.72],
+  [0.46, 0.68],
+  [0.72, 0.74],
+];
+
+function getWaypoints() {
+  return WAYPOINT_FRACS.map(([fx, fy]) => ({
+    x: window.innerWidth  * fx - CHAR / 2,
+    y: window.innerHeight * fy - CHAR / 2,
+  }));
+}
+
+function getDirection(dx: number, dy: number): Direction {
+  if (Math.abs(dx) >= Math.abs(dy)) return dx > 0 ? 'east' : 'west';
+  return dy > 0 ? 'south' : 'north';
+}
+
+// All walk keyframes defined once at module load
+const KEYFRAMES = (Object.entries(WALK_ROWS) as [Direction, number][])
+  .map(([dir, row]) => {
+    const y = row * FRAME_SIZE * SCALE;
+    const w = 9  * FRAME_SIZE * SCALE;
+    return `@keyframes walk-${dir}{from{background-position:0px -${y}px}to{background-position:-${w}px -${y}px}}`;
+  })
+  .join('\n');
+
+const IDLE_BG_POS = `0px -${10 * FRAME_SIZE * SCALE}px`; // walk-south frame 0
+
+export function WalkingCharacter() {
+  const [pos,               setPos]               = useState({ x: 0, y: 0 });
+  const [direction,         setDirection]         = useState<Direction>('south');
+  const [walking,           setWalking]           = useState(false);
+  const [transitionSecs,    setTransitionSecs]    = useState(0);
+  const [visible,           setVisible]           = useState(false);
+  const idxRef = useRef(0);
+
+  useEffect(() => {
+    const pts    = getWaypoints();
+    const start  = Math.floor(Math.random() * pts.length);
+    idxRef.current = start;
+    setPos(pts[start]);
+    setVisible(true);
+
+    let tWalk: ReturnType<typeof setTimeout>;
+    let tIdle: ReturnType<typeof setTimeout>;
+
+    function step() {
+      const pts    = getWaypoints();
+      const cur    = idxRef.current;
+      const others = pts.map((_, i) => i).filter(i => i !== cur);
+      const next   = others[Math.floor(Math.random() * others.length)];
+      idxRef.current = next;
+
+      const dx   = pts[next].x - pts[cur].x;
+      const dy   = pts[next].y - pts[cur].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const dur  = dist / SPEED;
+
+      setDirection(getDirection(dx, dy));
+      setTransitionSecs(dur);
+      setWalking(true);
+      setPos(pts[next]);
+
+      tWalk = setTimeout(() => {
+        setWalking(false);
+        tIdle = setTimeout(step, IDLE_MS);
+      }, dur * 1000 + 80);
+    }
+
+    tIdle = setTimeout(step, IDLE_MS);
+    return () => { clearTimeout(tWalk); clearTimeout(tIdle); };
+  }, []);
+
+  return (
+    <>
+      <style>{KEYFRAMES}</style>
+      <div
+        data-testid="walking-character"
+        style={{
+          position:         'absolute',
+          left:             pos.x,
+          top:              pos.y,
+          width:            CHAR,
+          height:           CHAR,
+          backgroundImage:  'url(/sprite.png)',
+          backgroundSize:   `${SHEET_W * SCALE}px ${SHEET_H * SCALE}px`,
+          backgroundRepeat: 'no-repeat',
+          imageRendering:   'pixelated',
+          opacity:          visible ? 1 : 0,
+          zIndex:           1,
+          transition:       walking ? `left ${transitionSecs}s linear, top ${transitionSecs}s linear` : 'none',
+          animation:        walking ? `walk-${direction} 0.6s steps(9) infinite` : 'none',
+          backgroundPosition: walking ? undefined : IDLE_BG_POS,
+        }}
+      />
+    </>
+  );
+}
