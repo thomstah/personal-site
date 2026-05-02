@@ -14,16 +14,16 @@ describe('PixelCharacter', () => {
     expect(el.style.animation).toContain('pixel-float');
   });
 
-  it('renders 22 pixel rows', () => {
+  it('renders the sprite frame at the correct size', () => {
     render(<PixelCharacter />);
-    const inner = screen.getByTestId('pixel-character').firstElementChild as HTMLElement;
-    expect(inner.children).toHaveLength(22);
+    const frame = screen.getByTestId('pixel-character').firstElementChild as HTMLElement;
+    expect(frame.style.width).toBe('128px');
+    expect(frame.style.height).toBe('128px');
   });
 
-  it('renders 14 pixel columns per row', () => {
+  it('points to the sprite sheet', () => {
     render(<PixelCharacter />);
-    const inner = screen.getByTestId('pixel-character').firstElementChild as HTMLElement;
-    const firstRow = inner.children[0] as HTMLElement;
-    expect(firstRow.children).toHaveLength(14);
+    const frame = screen.getByTestId('pixel-character').firstElementChild as HTMLElement;
+    expect(frame.style.backgroundImage).toContain('sprite.png');
   });
 });
