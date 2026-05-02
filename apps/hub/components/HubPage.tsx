@@ -7,7 +7,7 @@ import { Room } from './Room';
 import { WalkingCharacter } from './WalkingCharacter';
 
 const BOX_W = 560;
-const BOX_H = 305; // 2816×1536 image → 11:6 ratio → 560×305
+const BOX_H = 277; // 2584×1278 image → ~2.02:1 ratio → 560×277
 
 function fadeUp(delay: number) {
   return {
