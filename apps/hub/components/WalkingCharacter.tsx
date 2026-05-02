@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 
 const FRAME_SIZE = 64;
-const SCALE = 1;          // 64px character — right-sized for a diorama box
-const CHAR = FRAME_SIZE;  // 64px
+const SCALE = 2;           // 128px character — visible at full-page viewport size
+const CHAR = FRAME_SIZE * SCALE;
 const SHEET_W = 832;
 const SHEET_H = 3456;
 const SPEED = 80;         // px / second
@@ -42,15 +42,17 @@ function getDirection(dx: number, dy: number): Direction {
 }
 
 interface Props {
-  boxWidth: number;
-  boxHeight: number;
+  boxWidth?: number;
+  boxHeight?: number;
 }
 
-export function WalkingCharacter({ boxWidth, boxHeight }: Props) {
+export function WalkingCharacter({ boxWidth, boxHeight }: Props = {}) {
   function getWaypoints() {
+    const w = boxWidth  ?? window.innerWidth;
+    const h = boxHeight ?? window.innerHeight;
     return WAYPOINT_FRACS.map(([fx, fy]) => ({
-      x: boxWidth  * fx - CHAR / 2,
-      y: boxHeight * fy - CHAR / 2,
+      x: w * fx - CHAR / 2,
+      y: h * fy - CHAR / 2,
     }));
   }
 
