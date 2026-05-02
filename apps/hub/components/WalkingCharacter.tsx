@@ -14,14 +14,16 @@ const WALK_ROWS = { north: 8, west: 9, south: 10, east: 11 } as const;
 type Direction = keyof typeof WALK_ROWS;
 
 // Walkable waypoints as box fractions [x, y].
-// y > 0.38 keeps character in the floor area (below the 30% back wall).
+// Mapped to open floor areas in the isometric apartment image.
+// Avoids: kitchen island (center-left), couch (upper-right),
+//         dining table (lower-right), bookshelf (far left), plant/door (far right).
 const WAYPOINT_FRACS: [number, number][] = [
-  [0.18, 0.40],
-  [0.48, 0.40],
-  [0.70, 0.40],
-  [0.14, 0.65],
-  [0.46, 0.60],
-  [0.72, 0.67],
+  [0.50, 0.50],  // center of open floor
+  [0.38, 0.54],  // between kitchen and center
+  [0.60, 0.50],  // right of center, clear area
+  [0.25, 0.64],  // left open floor
+  [0.48, 0.76],  // bottom center, near door mat
+  [0.64, 0.62],  // right side, between couch and dining
 ];
 
 const KEYFRAMES = (Object.entries(WALK_ROWS) as [Direction, number][])
