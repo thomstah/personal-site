@@ -23,7 +23,7 @@ export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
   }
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
       <AnimatePresence>
         {navigating && (
           <motion.div
@@ -54,6 +54,7 @@ export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
           gap: '8px',
           cursor: 'pointer',
           position: 'relative',
+          width: '72px',
         }}
         onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
@@ -109,6 +110,6 @@ export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
           {label}
         </span>
       </motion.div>
-    </>
+    </div>
   );
 }
