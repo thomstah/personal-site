@@ -6,6 +6,9 @@ import { NavDots } from './NavDots';
 import { Room } from './Room';
 import { WalkingCharacter } from './WalkingCharacter';
 
+const BOX_W = 560;
+const BOX_H = 277; // 2584×1278 image → ~2.02:1 → 560×277
+
 function fadeUp(delay: number) {
   return {
     initial:    { opacity: 0, y: 8 },
@@ -18,73 +21,52 @@ export function HubPage() {
   return (
     <main
       data-testid="hub-page"
-      style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}
+      style={{
+        display:         'flex',
+        flexDirection:   'column',
+        alignItems:      'center',
+        justifyContent:  'center',
+        minHeight:       '100vh',
+        backgroundColor: colors.background,
+        gap:             '20px',
+        overflow:        'hidden',
+      }}
     >
-      <Room />
-      <WalkingCharacter />
-
-      {/* Nav card — centred, frosted glass over the room */}
-      <div
+      {/* Room diorama box */}
+      <motion.div
+        {...fadeUp(0)}
         style={{
-          position:       'absolute',
-          inset:          0,
-          display:        'flex',
-          alignItems:     'center',
-          justifyContent: 'center',
-          zIndex:         10,
-          pointerEvents:  'none',
+          position: 'relative',
+          width:    BOX_W,
+          height:   BOX_H,
+          overflow: 'hidden',
+          outline:  `2px solid ${colors.rule}`,
         }}
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: animation.fadeInDuration }}
-          style={{
-            pointerEvents:        'auto',
-            display:              'flex',
-            flexDirection:        'column',
-            alignItems:           'center',
-            gap:                  '20px',
-            padding:              '28px 40px',
-            backgroundColor:      'rgba(250, 249, 246, 0.88)',
-            backdropFilter:       'blur(6px)',
-            WebkitBackdropFilter: 'blur(6px)',
-          }}
-        >
-          <motion.div
-            {...fadeUp(0.1)}
-            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '4px' }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-pixelify-sans)',
-                fontSize:   fontSizes.name,
-                fontWeight: 700,
-                color:      colors.text,
-              }}
-            >
-              Thommy Xay
-            </span>
-            <span
-              style={{
-                fontFamily:    'var(--font-pixelify-sans)',
-                fontSize:      fontSizes.subtitle,
-                letterSpacing: '0.3em',
-                color:         colors.textMuted,
-              }}
-            >
-              PERSONAL HUB
-            </span>
-          </motion.div>
+        <Room />
+        <WalkingCharacter boxWidth={BOX_W} boxHeight={BOX_H} />
+      </motion.div>
 
-          <motion.div
-            {...fadeUp(0.2)}
-            style={{ width: spacing.ruleWidth, height: '1px', backgroundColor: colors.rule }}
-          />
+      {/* Name + subtitle */}
+      <motion.div
+        {...fadeUp(0.1)}
+        style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '4px' }}
+      >
+        <span style={{ fontFamily: 'var(--font-pixelify-sans)', fontSize: fontSizes.name, fontWeight: 700, color: colors.text }}>
+          Thommy Xay
+        </span>
+        <span style={{ fontFamily: 'var(--font-pixelify-sans)', fontSize: fontSizes.subtitle, letterSpacing: '0.3em', color: colors.textMuted }}>
+          PERSONAL HUB
+        </span>
+      </motion.div>
 
-          <NavDots />
-        </motion.div>
-      </div>
+      {/* Rule */}
+      <motion.div
+        {...fadeUp(0.2)}
+        style={{ width: spacing.ruleWidth, height: '1px', backgroundColor: colors.rule }}
+      />
+
+      <NavDots />
     </main>
   );
 }
