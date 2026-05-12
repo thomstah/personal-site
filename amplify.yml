@@ -9,7 +9,7 @@ frontend:
       commands:
         - pnpm turbo build --filter=@thommyxay/hub
   artifacts:
-    baseDirectory: apps/hub/.next
+    baseDirectory: apps/hub/out
     files:
       - '**/*'
   cache:
