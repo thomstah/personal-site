@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 
 const FRAME_SIZE = 64;
-const SCALE = 2;           // 128px character — more visible in the smaller box
-const CHAR = FRAME_SIZE * SCALE;
 const SHEET_W = 832;
 const SHEET_H = 3456;
 const SPEED = 80;         // px / second
@@ -26,16 +24,6 @@ const WAYPOINT_FRACS: [number, number][] = [
   [0.28, 0.82],  // bottom left
 ];
 
-const KEYFRAMES = (Object.entries(WALK_ROWS) as [Direction, number][])
-  .map(([dir, row]) => {
-    const y = row * FRAME_SIZE * SCALE;
-    const w = 9 * FRAME_SIZE * SCALE;
-    return `@keyframes walk-${dir}{from{background-position:0px -${y}px}to{background-position:-${w}px -${y}px}}`;
-  })
-  .join('\n');
-
-const IDLE_BG_POS = `0px -${10 * FRAME_SIZE * SCALE}px`; // walk-south frame 0
-
 function getDirection(dx: number, dy: number): Direction {
   if (Math.abs(dx) >= Math.abs(dy)) return dx > 0 ? 'east' : 'west';
   return dy > 0 ? 'south' : 'north';
@@ -47,12 +35,23 @@ interface Props {
 }
 
 export function WalkingCharacter({ boxWidth, boxHeight }: Props = {}) {
+  const scale      = (boxWidth ?? 400) <= 360 ? 1 : 2;
+  const char       = FRAME_SIZE * scale;
+  const keyframes  = (Object.entries(WALK_ROWS) as [Direction, number][])
+    .map(([dir, row]) => {
+      const y = row * FRAME_SIZE * scale;
+      const w = 9 * FRAME_SIZE * scale;
+      return `@keyframes walk-${dir}{from{background-position:0px -${y}px}to{background-position:-${w}px -${y}px}}`;
+    })
+    .join('\n');
+  const idleBgPos  = `0px -${10 * FRAME_SIZE * scale}px`;
+
   function getWaypoints() {
     const w = boxWidth  ?? window.innerWidth;
     const h = boxHeight ?? window.innerHeight;
     return WAYPOINT_FRACS.map(([fx, fy]) => ({
-      x: w * fx - CHAR / 2,
-      y: h * fy - CHAR / 2,
+      x: w * fx - char / 2,
+      y: h * fy - char / 2,
     }));
   }
 
@@ -102,17 +101,17 @@ export function WalkingCharacter({ boxWidth, boxHeight }: Props = {}) {
 
   return (
     <>
-      <style>{KEYFRAMES}</style>
+      <style>{keyframes}</style>
       <div
         data-testid="walking-character"
         style={{
           position:           'absolute',
           left:               pos.x,
           top:                pos.y,
-          width:              CHAR,
-          height:             CHAR,
+          width:              char,
+          height:             char,
           backgroundImage:    'url(/sprite.png)',
-          backgroundSize:     `${SHEET_W * SCALE}px ${SHEET_H * SCALE}px`,
+          backgroundSize:     `${SHEET_W * scale}px ${SHEET_H * scale}px`,
           backgroundRepeat:   'no-repeat',
           imageRendering:     'pixelated',
           opacity:            visible ? 1 : 0,
@@ -121,7 +120,7 @@ export function WalkingCharacter({ boxWidth, boxHeight }: Props = {}) {
             ? `left ${transitionSecs}s linear, top ${transitionSecs}s linear`
             : 'none',
           animation:          walking ? `walk-${direction} 0.6s steps(9) infinite` : 'none',
-          backgroundPosition: walking ? undefined : IDLE_BG_POS,
+          backgroundPosition: walking ? undefined : idleBgPos,
         }}
       />
     </>

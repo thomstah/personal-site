@@ -1,13 +1,14 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { colors, fontSizes, spacing, animation } from '@thommyxay/ui';
 import { NavDots } from './NavDots';
 import { Room } from './Room';
 import { WalkingCharacter } from './WalkingCharacter';
 
-const BOX_W = 400;
-const BOX_H = 399; // 1382×1380 image → ~1:1 → 400×399
+const MAX_BOX_W = 400;
+const ASPECT    = 399 / 400; // 1382×1380 image ≈ 1:1
 
 function fadeUp(delay: number) {
   return {
@@ -18,6 +19,20 @@ function fadeUp(delay: number) {
 }
 
 export function HubPage() {
+  const [boxW, setBoxW] = useState(MAX_BOX_W);
+  const [boxH, setBoxH] = useState(Math.round(MAX_BOX_W * ASPECT));
+
+  useEffect(() => {
+    function update() {
+      const w = Math.min(MAX_BOX_W, window.innerWidth - 32);
+      setBoxW(w);
+      setBoxH(Math.round(w * ASPECT));
+    }
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   return (
     <main
       data-testid="hub-page"
@@ -37,14 +52,14 @@ export function HubPage() {
         {...fadeUp(0)}
         style={{
           position: 'relative',
-          width:    BOX_W,
-          height:   BOX_H,
+          width:    boxW,
+          height:   boxH,
           overflow: 'hidden',
           outline:  `2px solid ${colors.rule}`,
         }}
       >
         <Room />
-        <WalkingCharacter boxWidth={BOX_W} boxHeight={BOX_H} />
+        <WalkingCharacter boxWidth={boxW} boxHeight={boxH} />
       </motion.div>
 
       {/* Name + subtitle */}
