@@ -15,14 +15,14 @@ describe('NavDots', () => {
     render(<NavDots />);
     expect(screen.getByTestId('nav-dot-portfolio')).toBeInTheDocument();
     expect(screen.getByTestId('nav-dot-gallery')).toBeInTheDocument();
-    expect(screen.getByTestId('nav-dot-links')).toBeInTheDocument();
+    expect(screen.getByTestId('nav-dot-stalk me')).toBeInTheDocument();
   });
 
   it('renders all three labels', () => {
     render(<NavDots />);
     expect(screen.getByText('PORTFOLIO')).toBeInTheDocument();
     expect(screen.getByText('GALLERY')).toBeInTheDocument();
-    expect(screen.getByText('LINKS')).toBeInTheDocument();
+    expect(screen.getByText('STALK ME')).toBeInTheDocument();
   });
 
   it('renders within the nav-dots container', () => {

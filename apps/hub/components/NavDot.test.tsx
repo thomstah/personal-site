@@ -33,14 +33,14 @@ describe('NavDot', () => {
   });
 
   it('shows tooltip on mouse enter', () => {
-    render(<NavDot label="LINKS" href="https://links.thommyxay.com" color="#cccccc" />);
-    fireEvent.mouseEnter(screen.getByTestId('nav-dot-links'));
+    render(<NavDot label="STALK ME" href="https://links.thommyxay.com" color="#cccccc" />);
+    fireEvent.mouseEnter(screen.getByTestId('nav-dot-stalk me'));
     expect(screen.getByText('https://links.thommyxay.com')).toBeInTheDocument();
   });
 
   it('hides tooltip on mouse leave', () => {
-    render(<NavDot label="LINKS" href="https://links.thommyxay.com" color="#cccccc" />);
-    const dot = screen.getByTestId('nav-dot-links');
+    render(<NavDot label="STALK ME" href="https://links.thommyxay.com" color="#cccccc" />);
+    const dot = screen.getByTestId('nav-dot-stalk me');
     fireEvent.mouseEnter(dot);
     fireEvent.mouseLeave(dot);
     expect(screen.queryByText('https://links.thommyxay.com')).not.toBeInTheDocument();
