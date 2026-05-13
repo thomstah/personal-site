@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { animation, colors } from '@thommyxay/ui';
 
@@ -15,6 +15,14 @@ interface NavDotProps {
 export function NavDot({ label, href, color, icon, delay = 0 }: NavDotProps) {
   const [hovered, setHovered] = useState(false);
   const [navigating, setNavigating] = useState(false);
+
+  useEffect(() => {
+    function onPageShow(e: PageTransitionEvent) {
+      if (e.persisted) setNavigating(false);
+    }
+    window.addEventListener('pageshow', onPageShow);
+    return () => window.removeEventListener('pageshow', onPageShow);
+  }, []);
 
   function handleClick() {
     setNavigating(true);
