@@ -35,7 +35,8 @@ interface Props {
 }
 
 export function WalkingCharacter({ boxWidth, boxHeight }: Props = {}) {
-  const scale      = (boxWidth ?? 400) <= 360 ? 1 : 2;
+  const bw         = boxWidth ?? 400;
+  const scale      = bw <= 350 ? 1 : bw <= 399 ? 1.5 : 2;
   const char       = FRAME_SIZE * scale;
   const keyframes  = (Object.entries(WALK_ROWS) as [Direction, number][])
     .map(([dir, row]) => {
