@@ -8,10 +8,11 @@ interface NavDotProps {
   label: string;
   href: string;
   color: string;
+  icon?: React.ReactNode;
   delay?: number;
 }
 
-export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
+export function NavDot({ label, href, color, icon, delay = 0 }: NavDotProps) {
   const [hovered, setHovered] = useState(false);
   const [navigating, setNavigating] = useState(false);
 
@@ -90,13 +91,12 @@ export function NavDot({ label, href, color, delay = 0 }: NavDotProps) {
         <motion.div
           animate={{ scale: hovered ? animation.hoverScale : 1 }}
           transition={{ duration: animation.hoverDuration / 1000 }}
-          style={{
-            width: '9px',
-            height: '9px',
-            borderRadius: '50%',
-            backgroundColor: color,
-          }}
-        />
+          style={{ color, lineHeight: 0 }}
+        >
+          {icon ?? (
+            <div style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: color }} />
+          )}
+        </motion.div>
 
         <span
           style={{
